@@ -1,7 +1,5 @@
 # Simple Calculator API (ASP.NET Core)
 
-My "hello world" project in ASP.NET Core. 
-
 This API returns JSON only, there are no Razor views or other GUI elements.
 
 ### Inputs 
