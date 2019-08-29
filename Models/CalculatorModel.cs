@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace SimpleCalculatorAPI.Models
 {
@@ -35,6 +36,7 @@ namespace SimpleCalculatorAPI.Models
         }
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum CalculatorOperations
     {
         Add,

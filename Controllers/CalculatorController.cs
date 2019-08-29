@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using SimpleCalculatorAPI.Models;
 
 
@@ -7,9 +8,9 @@ namespace SimpleCalculatorAPI.Controllers
     [Route("api/[controller]")]
     public class CalculatorController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(CalculatorModel model)
         {
-            return new ContentResult();
+            return new JsonResult(new { operations = Enum.GetValues(typeof(CalculatorOperations)) });
         }
 
         [HttpGet("{Operation}/{Ops?}")]
