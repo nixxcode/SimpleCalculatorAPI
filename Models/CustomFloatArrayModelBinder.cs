@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace SimpleCalculatorAPI.Models
 {
+    /**
+     *  Custom model binder that allows us to grab semicolon-separated operands from request URI
+     *  and bind them to a float array in our controller
+     */
     public class CustomFloatArrayModelBinder: IModelBinder
     {
         public Task BindModelAsync(ModelBindingContext bindingContext)
@@ -23,6 +27,7 @@ namespace SimpleCalculatorAPI.Models
 
             var elementType = bindingContext.ModelType.GetElementType();
 
+            // We only accept parameters of type "Single", also known as Float
             if (elementType.Name != "Single")
             {
                 bindingContext.Result = ModelBindingResult.Failed();
@@ -31,6 +36,7 @@ namespace SimpleCalculatorAPI.Models
 
             var converter = TypeDescriptor.GetConverter(elementType);
 
+            // Attempt conversion to float array and bind to model
             try
             {
                 var values = value.Split(';', StringSplitOptions.RemoveEmptyEntries)
@@ -51,6 +57,7 @@ namespace SimpleCalculatorAPI.Models
             }
         }
 
+        // Allows us to optionally wrap operands in parenthesis () or square brackets [] for easier visibility
         private static string Clean(string str)
         {
             return str.Trim('(', ')').Trim('[', ']').Trim();
